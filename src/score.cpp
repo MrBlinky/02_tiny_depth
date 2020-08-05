@@ -1,6 +1,8 @@
 #include "score.h"
 #include "lib/eep.h"
 
+#define EEPROM_ADDR 16
+
 //---------------------------------------------------------------------------
 ST_SCORE Score;
 
@@ -22,7 +24,7 @@ void ScoreSave(void)
 	Score.high = Score.now;
 
 
-	EepSeek(0);
+	EepSeek(EEPROM_ADDR);
 
 	EepWrite8('D');
 	EepWrite8('P');
@@ -35,7 +37,7 @@ void ScoreLoad(void)
 	Score.high = 0;
 
 
-	EepSeek(0);
+	EepSeek(EEPROM_ADDR);
 
 	if(EepRead8() != 'D') return;
 	if(EepRead8() != 'P') return;
